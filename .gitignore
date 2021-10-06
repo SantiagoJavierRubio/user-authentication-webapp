@@ -1,0 +1,5 @@
+*/node_modules
+*.env
+*fb_config.js
+*.env.development
+*.env.production
