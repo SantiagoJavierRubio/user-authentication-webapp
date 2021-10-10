@@ -10,11 +10,10 @@ const Google = () => {
         const auth = getAuth();
         try {
             const userAuth = await signInWithPopup(auth, provider);
-            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/register/google`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/register`, {
                 user: userAuth.user,
                 token: userAuth._tokenResponse
             })
-            console.log(response.data)
         } catch (err) {
             console.log(err)
         } 
