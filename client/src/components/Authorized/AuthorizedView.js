@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { ThreeDots } from '@agney/react-loading';
 import { getAuth } from "firebase/auth";
 
 const AuthorizedView = () => {
 
     const [user, setUser] = useState({});
+    const [isLoading, setLoading] = useState(true);
     const auth = getAuth();
 
     const getUserInfo = async() => {
@@ -19,6 +21,7 @@ const AuthorizedView = () => {
         } catch(err) {
             console.log(err);
         }
+        setLoading(false);
     }
     useEffect(() => {
         getUserInfo();
@@ -31,8 +34,12 @@ const AuthorizedView = () => {
     return(
         <div>
             <h1>Welcome</h1>
-            {user.name ? <h2>{user.name}</h2> : <p>No user</p>}
-            <button onClick={handleSignOut}>Sign Out</button>
+            {isLoading ? <ThreeDots /> : (
+            <>
+                {user.name ? <h2>{user.name}</h2> : <p>No user</p>}
+                <button onClick={handleSignOut}>Sign Out</button>
+            </>
+            )}
         </div>
     )
 }

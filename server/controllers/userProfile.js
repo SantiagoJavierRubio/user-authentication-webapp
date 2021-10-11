@@ -4,7 +4,6 @@ export const getUserProfile = async (req, res) => {
     const user_id = req.query.id;
     try {
         const userProfile = await Profile.findOne({userID: user_id});
-        console.log(userProfile);
         if(userProfile){
             res.status(200).json(userProfile);
         } else {
