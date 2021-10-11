@@ -1,0 +1,9 @@
+.social-logos {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.social-logo {
+    width: 2.65rem;
+    cursor: pointer;
+}

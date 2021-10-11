@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import { ReactComponent as Logo } from './Facebook.svg';
 
 const Facebook = () => {
 
@@ -21,7 +22,7 @@ const Facebook = () => {
 
 
     return(
-        <button onClick={signUp}>Facebook</button>
+        <Logo onClick={signUp} className='social-logo'/>
     )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import './Register.css';
 
 
 const Register = () => {
@@ -22,11 +23,17 @@ const Register = () => {
     }
 
     return(
-        <div>
-            <form onSubmit={createUser}>
+        <div className='register-box'>
+            <p className='register-title'>
+                Join thousands of learners from around the world.
+            </p>
+            <p className='register-description'>
+                Master web development by making real-life projects. There are multiple paths for you to choose
+            </p>
+            <form onSubmit={createUser} className='register-form'>
                 <input type="email" name="mail" />
                 <input type="password" name="psw" />
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit" className='submit-btn'/>
             </form>
         </div>
     )

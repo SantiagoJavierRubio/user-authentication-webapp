@@ -1,8 +1,4 @@
 import Profile from '../models/Profile.js';
-import { initializeApp } from "firebase/app";
-import firebaseConfig from '../fb_config.js';
-
-const app = initializeApp(firebaseConfig);
 
 export const registerUser = async (req, res) => {
     const user = req.body.user;
