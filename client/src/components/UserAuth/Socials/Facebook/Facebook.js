@@ -1,12 +1,12 @@
-import React from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import React from "react";
 import axios from 'axios';
+import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 
-const Google = () => {
+const Facebook = () => {
 
     const signUp = async () => {
 
-        const provider = new GoogleAuthProvider();
+        const provider = new FacebookAuthProvider();
         const auth = getAuth();
         try {
             const userAuth = await signInWithPopup(auth, provider);
@@ -21,8 +21,8 @@ const Google = () => {
 
 
     return(
-        <button onClick={signUp}>Google</button>
+        <button onClick={signUp}>Facebook</button>
     )
 }
 
-export default Google;
+export default Facebook;

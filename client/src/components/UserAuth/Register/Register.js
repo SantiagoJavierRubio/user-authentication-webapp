@@ -12,7 +12,7 @@ const Register = () => {
         const password = e.target.psw.value;
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/register/email`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/register`, {
                 user: userCredential.user
             })
             console.log(response);
