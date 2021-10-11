@@ -1,6 +1,7 @@
 import React from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import axios from 'axios';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { ReactComponent as Logo } from './Google.svg';
 
 const Google = () => {
 
@@ -21,7 +22,7 @@ const Google = () => {
 
 
     return(
-        <button onClick={signUp}>Google</button>
+        <Logo onClick={signUp} className='social-logo'/>
     )
 }
 

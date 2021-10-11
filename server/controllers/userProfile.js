@@ -13,3 +13,13 @@ export const getUserProfile = async (req, res) => {
         res.status(400).json({message: err.message});
     }
 }
+
+export const editProfile = async (req, res) => {
+    const new_data = req.body;
+    try {
+        const updatedProfile = await Profile.findOneAndUpdate({userID: new_data.userID}, new_data, { new: true });
+        res.status(200).json(updatedProfile);
+    } catch(err) {
+        res.status(400).json({ message: err.message });
+    }
+}

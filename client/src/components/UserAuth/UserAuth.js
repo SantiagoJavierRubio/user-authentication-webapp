@@ -2,6 +2,8 @@ import { useState } from "react";
 import Register from './Register/Register';
 import LogIn from './LogIn/LogIn';
 import Socials from './Socials/Socials';
+import './UserAuth.css';
+import { ReactComponent as Logo } from './devchallenges.svg';
 
 const UserAuth = () => {
 
@@ -12,10 +14,11 @@ const UserAuth = () => {
     }
 
     return(
-        <div>
+        <div className="auth-box">
+            <Logo className='logo' />
             {isNew ? <Register /> : <LogIn />}
             <Socials />
-            <p>
+            <p className='you-new'>
                 {isNew ? "Already a member?" : "Don't have an account yet?"}
                 <button onClick={toggleNew}>
                     {isNew ? "Login" : "Register"}

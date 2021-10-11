@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { ReactComponent as Logo } from './Github.svg';
 
 const GitHub = () => {
 
@@ -21,7 +22,7 @@ const GitHub = () => {
 
 
     return(
-        <button onClick={signUp}>GitHub</button>
+        <Logo onClick={signUp} className='social-logo'/>
     )
 }
 
