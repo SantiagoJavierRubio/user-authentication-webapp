@@ -1,9 +1,38 @@
+.socials-login {
+    margin-top: .5rem;
+}
+.socials-login p {
+    font-family: Noto Sans;
+    font-weight: 400;
+    font-size: .8rem;
+    color: rgba(130, 130, 130, 1);
+}
 .social-logos {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
+
+/* sub-component shared classes */
 .social-logo {
     width: 2.65rem;
     cursor: pointer;
+}
+.social-logo:hover {
+    box-shadow: inset 2px 5px 5px rgba(0,0,0,0.1);
+    border-radius: 100%;
+}
+.social-logo:active {
+    box-shadow: none;
+    border-radius: 100%;
+}
+/*     ****      */
+
+@media (prefers-color-scheme: dark){
+    .social-logo:hover {
+        box-shadow: inset 2px 5px 5px rgba(0,0,0,0.5);
+    }
+    .social-logo:active {
+        box-shadow: none;
+    }
 }

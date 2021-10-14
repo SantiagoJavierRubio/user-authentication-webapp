@@ -1,0 +1,9 @@
+#authorized-view {
+    margin: 0;
+}
+.loading-dots {
+    margin: auto;
+    width: 10rem;
+    margin-top: 50%;
+    transform: translateY(-50%);
+}

@@ -1,0 +1,13 @@
+#user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 2rem;
+}
+#user-actions .username {
+    margin-left: .2rem;
+}
+#user-actions img {
+    max-height: 100%;
+    border-radius: 5px;
+}

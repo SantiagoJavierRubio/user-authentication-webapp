@@ -1,14 +1,22 @@
 .auth-box {
     margin: auto;
-    width: 25%;
+    margin-top: 50%;
+    transform: translateY(-50%);
+    max-width: 35%;
     border: 1px solid #BDBDBD;
     border-radius: 24px;
-    padding: 2.5rem 3.5rem;
+    padding: 2.5rem 3rem;
     display: flex;
     flex-direction: column;
 }
 .logo {
     height: 1rem;
+    margin-left: -10px;
+}
+.l-logo {
+    height: 1rem;
+    margin-left: -10px;
+    display: none;
 }
 .you-new {
     font-family: Noto Sans;
@@ -23,7 +31,7 @@
     font-family: Noto Sans;
     font-size: .85rem;
     font-weight: 400;
-    color: blue;
+    color: #2F80ED;;
     cursor: pointer;
 }
 .you-new button:hover {
@@ -31,4 +39,100 @@
 }
 .you-new button:active {
     color: purple;
+}
+
+/* sub-component shared classes */
+.inner-box {
+    text-align: left;
+}
+.auth-title {
+    font-family: Noto Sans;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.user-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.input-div {
+    display: flex;
+    align-items: center;
+    height: 2rem;    
+    border: 1px solid #BDBDBD;
+    margin: .35rem 0;
+    padding: .2rem .5rem;
+    color: rgba(130, 130, 130, 1);
+    border-radius: 8px;
+}
+.input-div input {
+    border: none;
+    flex-grow: 1;
+    height: 100%;
+    outline: none;
+    margin-left: .5rem;
+}
+.submit-btn {
+    background: #2F80ED;
+    border-radius: 8px;
+    border: none;
+    color: #FFF;
+    font-family: Noto Sans;
+    font-size: 1rem;
+    margin: .35rem 0;
+    padding: .5rem .2rem;
+    font-weight: 600;
+    text-align: center; 
+    cursor: pointer;
+}
+.submit-btn:hover {
+    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
+}
+.submit-btn:active {
+    box-shadow: none;
+}
+/*    ****     */
+
+/* removes chrome autocomplete background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    box-shadow: none;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+/*   ****     */
+
+
+@media (max-width: 768px){
+    .auth-box {
+        border: none;
+        padding: 0;
+        max-width: 450px;
+        width: 95%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .auth-title, .register-description {
+        color: rgba(224, 224, 224, 1);
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        box-shadow: none;
+        -webkit-box-shadow: 0 0 0 30px #333 inset !important;
+        -webkit-text-fill-color: rgba(130, 130, 130, 1);
+    }
+    .input-div input {
+        background: #333;
+        color: rgba(130, 130, 130, 1);
+    }
+    .logo {
+        display: none;
+    }
+    .l-logo {
+        display: block;
+    }
 }

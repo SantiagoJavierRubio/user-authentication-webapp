@@ -1,0 +1,46 @@
+#toggle-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+#dropdown-box {
+    position: absolute;
+    top: 3rem;
+    right: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: .5rem;
+    background-color: #FFF;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+    border-radius: 12px;
+}
+#dropdown-box button {
+    display: flex;
+    align-items: center;
+    width: 10rem;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#dropdown-box button:hover {
+    background-color: #F2F2F2;
+}
+#dropdown-box button:active {
+    background: none;
+}
+#dropdown-box button p {
+    margin-left: .5rem;
+}
+.logout-btn {
+    color: rgb(235,87,87);
+}
+.option-btn {
+    color: #4F4F4F;
+}
+.divider {
+    margin: .2rem 0;
+    border-top: 1px solid #E0E0E0;
+}

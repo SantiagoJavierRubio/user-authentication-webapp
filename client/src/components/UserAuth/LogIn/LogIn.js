@@ -18,12 +18,18 @@ const LogIn = () => {
 
 
     return(
-        <div>
-            <h1>Log In</h1>
-            <form onSubmit={logUser}>
-                <input type="email" name="mail" />
-                <input type="password" name="psw" />
-                <input type="submit" value="submit" />
+        <div className="inner-box">
+            <h1 className="auth-title">Login</h1>
+            <form onSubmit={logUser} className="user-form">
+                <div className='input-div'>
+                    <span className="material-icons">email</span>
+                    <input type="email" name="mail" placeholder="Email"/>
+                </div>
+                <div className='input-div'>
+                    <span className="material-icons">lock</span>
+                    <input type="password" name="psw" placeholder="Password" />
+                </div>
+                <input type="submit" value="Login" className='submit-btn'/>
             </form>
         </div>
     )

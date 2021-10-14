@@ -1,3 +1,20 @@
 .App {
   text-align: center;
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 80%;
+  box-sizing: border-box;
+}
+#top-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  margin-top: 0rem;
+}
+
+@media (max-width: 768px){
+  .App{
+      width: 100%;
+  }
 }

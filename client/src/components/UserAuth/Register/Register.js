@@ -23,17 +23,23 @@ const Register = () => {
     }
 
     return(
-        <div className='register-box'>
-            <p className='register-title'>
+        <div className='inner-box'>
+            <p className='auth-title'>
                 Join thousands of learners from around the world.
             </p>
             <p className='register-description'>
                 Master web development by making real-life projects. There are multiple paths for you to choose
             </p>
-            <form onSubmit={createUser} className='register-form'>
-                <input type="email" name="mail" />
-                <input type="password" name="psw" />
-                <input type="submit" value="submit" className='submit-btn'/>
+            <form onSubmit={createUser} className='user-form'>
+                <div className='input-div'>
+                    <span className="material-icons">email</span>
+                    <input type="email" name="mail" placeholder="Email"/>
+                </div>
+                <div className='input-div'>
+                    <span className="material-icons">lock</span>
+                    <input type="password" name="psw" placeholder="Password" />
+                </div>
+                <input type="submit" value="Start coding now" className='submit-btn'/>
             </form>
         </div>
     )

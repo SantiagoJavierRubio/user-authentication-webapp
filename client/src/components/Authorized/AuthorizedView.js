@@ -4,6 +4,7 @@ import { ThreeDots } from '@agney/react-loading';
 import { getAuth } from "firebase/auth";
 import Profile from './Profile/Profile';
 import ProfileEdit from "./ProfileEdit/ProfileEdit";
+import './AuthorizedView.css';
 
 const AuthorizedView = () => {
 
@@ -31,10 +32,6 @@ const AuthorizedView = () => {
         getUserInfo();
     }, [])
 
-    const handleSignOut = () => {
-        auth.signOut();
-    }
-
     const toggleEdit = () => {
         if(toEdit){
             getUserInfo();
@@ -43,13 +40,11 @@ const AuthorizedView = () => {
     }
 
     return(
-        <div>
-            <h1>Welcome</h1>
-            {isLoading ? <ThreeDots /> : (
+        <div id="authorized-view">
+            {isLoading ? <ThreeDots className="loading-dots"/> : (
             <>
                 {toEdit ? <ProfileEdit user={user} toggleEdit={toggleEdit} /> :
                 <Profile user={user} toggleEdit={toggleEdit} />}
-            <button onClick={handleSignOut}>Sign Out</button>
             </>
             )}
         </div>
