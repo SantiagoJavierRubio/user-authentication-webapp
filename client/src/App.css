@@ -4,6 +4,7 @@
   max-width: 1600px;
   width: 80%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 #top-banner {
   display: flex;
@@ -11,6 +12,15 @@
   align-items: center;
   flex-grow: 1;
   margin-top: 0rem;
+}
+.loading-dots {
+  margin: auto;
+  width: 10rem;
+  margin-top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 768px){

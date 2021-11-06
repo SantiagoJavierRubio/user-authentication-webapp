@@ -1,0 +1,25 @@
+.photo-edit-box {
+    position: relative;
+    display: flex;
+}
+.photo-edit-box img {
+    border-radius: 8px;
+}
+.photo-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    color: white;
+    border: none;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 8px;
+    opacity: 0%;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.photo-overlay:hover {
+    opacity: 100%;
+}
+.photo-overlay:active {
+    background-color: rgba(0,0,0,0.7);
+}

@@ -8,7 +8,7 @@ import AuthorizedView from './components/Authorized/AuthorizedView';
 import UserActions from './components/UserActions/UserActions';
 import { ReactComponent as Logo } from './components/Logos/devchallenges.svg';
 import { ReactComponent as LightLogo } from './components/Logos/devchallenges-light.svg';
-
+import { ThreeDots } from '@agney/react-loading';
 
 function App() {
   
@@ -24,6 +24,7 @@ function App() {
   const app = initializeApp(firebaseConfig);
   const [hasUser, setUser] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getUserInfo = async(user) => {
     try {
@@ -45,28 +46,36 @@ function App() {
       if (user) {
         setUser(true);
         getUserInfo(user);
+        setLoading(false);
       } else {
         setUser(false);
+        setLoading(false);
       }
     });
   }, []);
 
-  return (
-    <>
-    {hasUser ?
-      <div id="top-banner">
-        <Logo />
-        <UserActions user={userData}/>
+  if(!loading){
+    return (
+      <>
+      {hasUser ?
+        <div id="top-banner">
+          <Logo />
+          <UserActions user={userData}/>
+        </div>
+        : 
+        null
+      }
+      <div className="App">
+        {hasUser ? <AuthorizedView /> : <UserAuth />}
       </div>
-      : 
-      null
-    }
-    <div className="App">
-      {hasUser ? <AuthorizedView /> : <UserAuth />}
-    </div>
-    </>
-    );
+      </>
+      );
+  } else {
+    return(
+      <ThreeDots className="loading-dots"/>
+    )
   }
+}
   
   export default App;
   

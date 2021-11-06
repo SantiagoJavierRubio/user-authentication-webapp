@@ -8,7 +8,7 @@ import { ReactComponent as LightLogo } from '../Logos/devchallenges-light.svg';
 
 const UserAuth = () => {
 
-    const [isNew, setIsNew] = useState(true);
+    const [isNew, setIsNew] = useState(false);
 
     const toggleNew = () => {
         setIsNew(!isNew);

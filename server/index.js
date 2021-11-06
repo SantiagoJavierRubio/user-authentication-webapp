@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
+import imageRoutes from './routes/images.js';
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/images', imageRoutes);
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
