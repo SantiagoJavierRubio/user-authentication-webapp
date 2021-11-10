@@ -37,13 +37,13 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUD_SECRET
 })
 
-const cloudinaryUpload = file => { return cloudinary.v2.uploader.upload(file, 
+const cloudinaryUpload = (file, userid) => { return cloudinary.v2.uploader.upload(file, 
         { 
-            folder: 'ProfilePics',
+            folder: `ProfilePics/${userid}`,
             width: 500,
             height: 500,
-            //gravity: "faces",
-            crop: "thumb"
+            crop: "thumb",
+            tags: [userid]
         }
     )}
 
@@ -59,9 +59,23 @@ export const uploadImage = async (req, res) => {
             throw new Error('No file found!')
         }
         const base64Image = formatImage(req.file);
-        const cloudRes = await cloudinaryUpload(base64Image);
+        const cloudRes = await cloudinaryUpload(base64Image, req.headers.usr);
         return res.status(200).json(cloudRes);
     } catch (err) {
         res.status(400).send({ message: err.message })
+    }
+}
+
+export const deleteUnusedImages = async (usr) => {
+    try {
+        const search = await cloudinary.v2.search.expression(`tags:${usr}`).execute();
+        const res = search.resources;
+        res.shift()
+        const toDelete = res.map((img) => {
+            return img.public_id;
+        })
+        await cloudinary.v2.api.delete_resources(toDelete);
+    } catch (err) {
+        return;
     }
 }

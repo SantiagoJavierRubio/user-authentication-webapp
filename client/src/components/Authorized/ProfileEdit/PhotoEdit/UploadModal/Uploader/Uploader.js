@@ -1,33 +1,37 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { BallTriangle } from '@agney/react-loading';
 import { ReactComponent as ImageLogo } from './image.svg';
 import './Uploader.css';
 
 const Uploader = (props) => {
 
     const [isOver, setOver] = useState(false);
-    const { closeModal, user } = props;
+    const { closeModal, user, toggleEdit } = props;
 
     const [providedImg, setProvidedImg] = useState(null);
     const [fileUploaded, setFileUploaded] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
     const VALID_EXTENSIONS = ['.gif', '.png', '.jpg', '.jpeg'];
 
     const uploadFile = async (file) => {
-        // Upload logic
         const formData = new FormData();
-        formData.append('image', file)
+        formData.append('image', file);
+        setLoading(true);
         try {
             const res = await axios.post(`${process.env.REACT_APP_API_URI}/images/upload`,
                 formData,
                 { 
-                    headers: { 'Content-Type': 'multipart/form-data' }
+                    headers: { 'Content-Type': 'multipart/form-data', 'usr': user.userID }
                 }
             )
             setFileUploaded(true);
             setProvidedImg(res.data.secure_url);
+            setLoading(false);
         } catch(err) {
             console.log(err);
+            setLoading(false);
         }
     }
 
@@ -67,9 +71,20 @@ const Uploader = (props) => {
         }
     }
 
-    const saveProfilePicture = (e) => {
+    const saveProfilePicture = async (e) => {
         e.preventDefault();
-        console.log('save it to DB');
+        try{
+            const res = await axios.post(`${process.env.REACT_APP_API_URI}/user/profile_pic_edit`, {
+                usr: user.userID,
+                url: providedImg
+            });
+            setProvidedImg(null);
+            setFileUploaded(false);
+            toggleEdit();
+            closeModal();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const handleCancel = async () => {
@@ -96,15 +111,24 @@ const Uploader = (props) => {
             </>
             :
             <>
-                <h2 className='uploaderHeader'>Upload your photo</h2>
-                <div id="drop_zone" className={`dropBox ${isOver? 'dropBoxOver' : null}`} onDrop={e=>handleDrop(e)} onDragOver={handleDragOver} onDragLeave={handleDragExit}>
-                    <ImageLogo  className='SVG' />
-                    <p className='optionText'>Drag & drop your image here</p>
-                </div>
-                <p className="optionText">or</p>
-                <label component="button" htmlFor="file_input" className='inputButton'>Choose a file</label>
-                <input type="file" id="file_input" accept='image/*' onChange={handleFile} className='realInput' />
-                <input type="text" id="link_input" placeholder="Or you can provide a link here..." className="linkInput" onChange={handleLink} />
+                {isLoading? 
+                    <div className="loading">
+                        <BallTriangle  className="loading-anim"/> 
+                        <p>Loading picture</p>
+                    </div>
+                :
+                <>
+                    <h2 className='uploaderHeader'>Upload your photo</h2>
+                    <div id="drop_zone" className={`dropBox ${isOver? 'dropBoxOver' : null}`} onDrop={e=>handleDrop(e)} onDragOver={handleDragOver} onDragLeave={handleDragExit}>
+                        <ImageLogo  className='SVG' />
+                        <p className='optionText'>Drag & drop your image here</p>
+                    </div>
+                    <p className="optionText">or</p>
+                    <label component="button" htmlFor="file_input" className='inputButton'>Choose a file</label>
+                    <input type="file" id="file_input" accept='image/*' onChange={handleFile} className='realInput' />
+                    <input type="text" id="link_input" placeholder="Or you can provide a link here..." className="linkInput" onChange={handleLink} />
+                </>
+                }
             </>
             }
         </div>

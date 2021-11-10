@@ -40,11 +40,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 1.2rem;
 }
 .photo-edit p {
     font-size: .8rem;
     font-weight: 500;
     color: #828282;
+    margin-left: 1.2rem;
 }
 .form-element {
     margin-top: 1rem;

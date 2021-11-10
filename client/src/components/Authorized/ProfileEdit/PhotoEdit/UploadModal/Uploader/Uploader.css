@@ -1,3 +1,9 @@
+@keyframes flickerAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:0.1; }
+    100% { opacity:1; }
+  }
+
 .uploaderMain {
     position: absolute;
     left: 50%;
@@ -78,6 +84,16 @@
     border: none;
     cursor: pointer;
     color: #828282;
+}
+.loading {
+    width: 70%;
+}
+.loading-anim {
+    width: 50%;
+    animation: flickerAnimation 2s infinite;
+}
+.loading p {
+    margin-left: 0;
 }
 
 @media (max-width: 500px){

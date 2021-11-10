@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import UploadModal from './UploadModal/UploadModal';
 import './PhotoEdit.css';
 
-const PhotoEdit = ({ user }) => {
+const PhotoEdit = ({ user, toggleEdit }) => {
 
     const [userImg, setImg] = useState(user.img);
     const [showModal, setShowModal] = useState(false);
@@ -26,7 +26,7 @@ const PhotoEdit = ({ user }) => {
 
     return (
         <>
-        {showModal ? <UploadModal closeModal={closeModal} user={user} /> : null}
+        {showModal ? <UploadModal closeModal={closeModal} user={user} toggleEdit={toggleEdit} /> : null}
         <div className="photo-edit-box">
             <img src={userImg} alt="Profile picture" onError={handleImgError} />
             <button className="photo-overlay" onClick={handleImgClick}>

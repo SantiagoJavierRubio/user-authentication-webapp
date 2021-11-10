@@ -1,6 +1,8 @@
 .photo-edit-box {
     position: relative;
     display: flex;
+    width: 5rem;
+    height: 5rem;
 }
 .photo-edit-box img {
     border-radius: 8px;

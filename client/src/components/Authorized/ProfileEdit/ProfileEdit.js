@@ -1,4 +1,3 @@
-import React from "react";
 import axios from 'axios';
 import { getAuth, updateEmail, updatePassword } from "firebase/auth";
 import PhotoEdit from './PhotoEdit/PhotoEdit';
@@ -45,8 +44,7 @@ const ProfileEdit = (props) => {
                 <p>Changes will be reflected to all the services</p>
             </div>
             <div className="photo-edit">
-                {/* <img src={img} alt="Profile picture"/> */}
-                <PhotoEdit user={user} />
+                <PhotoEdit user={user} toggleEdit={toggleEdit} />
                 <p>CHANGE PHOTO</p>
             </div>
             <div className="form-element">
