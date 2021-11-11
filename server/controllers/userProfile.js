@@ -1,5 +1,5 @@
 import Profile from '../models/Profile.js';
-import { deleteUnusedImages } from './imageUpload.js';
+import { deleteUnusedImages } from './imageManager.js';
 
 export const getUserProfile = async (req, res) => {
     const user_id = req.query.id;
@@ -32,7 +32,7 @@ export const editProfilePic = async (req, res) => {
         const updatedProfile = await Profile.findOneAndUpdate({userID: usr}, { 
             $set: {img: new_url}
         });
-        const prueba = await deleteUnusedImages(usr);
+        await deleteUnusedImages(usr);
         res.status(200).json(updatedProfile);
     } catch(err) {
         res.status(400).json({ message: err.message });

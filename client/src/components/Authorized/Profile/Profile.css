@@ -76,7 +76,9 @@
     color: rgb(51,51,51);
 }
 #profile-pic {
-    max-height: 8rem;
+    object-fit: cover;
+    width: 8rem;
+    height: 8rem;
     border-radius: 8px;
 }
 @media (max-width: 500px) {

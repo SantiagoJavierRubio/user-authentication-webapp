@@ -6,6 +6,9 @@
 }
 .photo-edit-box img {
     border-radius: 8px;
+    object-fit: cover;
+    width: 5rem;
+    height: 5rem;
 }
 .photo-overlay {
     position: absolute;

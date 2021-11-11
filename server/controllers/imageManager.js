@@ -37,6 +37,19 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUD_SECRET
 })
 
+export const deleteLatestImage = async (req, res) => {
+    const usr = req.body.usr;
+    try {
+        const search = await cloudinary.v2.search.expression(`tags:${usr}`).execute();
+        const response = search.resources;
+        const toDelete = response[0].public_id;
+        const q = await cloudinary.v2.api.delete_resources(toDelete);
+        res.status(200).json(q);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 const cloudinaryUpload = (file, userid) => { return cloudinary.v2.uploader.upload(file, 
         { 
             folder: `ProfilePics/${userid}`,
@@ -76,6 +89,6 @@ export const deleteUnusedImages = async (usr) => {
         })
         await cloudinary.v2.api.delete_resources(toDelete);
     } catch (err) {
-        return;
+        return err;
     }
 }

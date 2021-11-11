@@ -28,9 +28,9 @@ const Uploader = (props) => {
             )
             setFileUploaded(true);
             setProvidedImg(res.data.secure_url);
-            setLoading(false);
         } catch(err) {
             console.log(err);
+        } finally {
             setLoading(false);
         }
     }
@@ -78,35 +78,46 @@ const Uploader = (props) => {
                 usr: user.userID,
                 url: providedImg
             });
-            setProvidedImg(null);
-            setFileUploaded(false);
-            toggleEdit();
             closeModal();
+            toggleEdit();
         } catch (err) {
             console.log(err);
+        } finally {
+            setProvidedImg(null);
+            setFileUploaded(false);
         }
     }
 
     const handleCancel = async () => {
         if(fileUploaded){
-            console.log('Delete image from cloudinary')
+            try{
+                await axios.post(`${process.env.REACT_APP_API_URI}/images/delete_latest`, {
+                    usr: user.userID
+                })
+            } catch (err) {
+                console.log(err);
+            }
         }
         setProvidedImg(null);
         setFileUploaded(false);
     }
 
+    const handleClose = () => {
+        handleCancel().finally(closeModal())
+    }
+
     return(
         <div className='uploaderMain' onClick={e => e.stopPropagation()}>
-            <button className="closeModalBtn" onClick={closeModal}>
+            <button className="closeModalBtn" onClick={handleClose}>
                 <span className="material-icons">close</span>
             </button>
             {providedImg ? 
             <>
                 <p className="confirmQuestionText">Is this photo OK?</p>
-                <img src={providedImg} alt="" onError={e=>setProvidedImg(null)}/>
+                <img src={providedImg} alt="your picture" onError={e=>setProvidedImg(null)} id="provided-img"/>
                 <div className="confirmOptions">
-                    <button onClick={saveProfilePicture} >Confirm</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={saveProfilePicture} id="confirm-pic">Confirm</button>
+                    <button onClick={handleCancel} id="cancel-pic">Cancel</button>
                 </div>    
             </>
             :
