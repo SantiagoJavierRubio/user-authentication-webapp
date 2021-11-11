@@ -122,7 +122,7 @@ const Uploader = (props) => {
             </>
             :
             <>
-                {isLoading? 
+                {isLoading ? 
                     <div className="loading">
                         <BallTriangle  className="loading-anim"/> 
                         <p>Loading picture</p>
