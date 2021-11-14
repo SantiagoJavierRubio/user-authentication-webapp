@@ -1,13 +1,14 @@
 .auth-box {
     margin: auto;
-    margin-top: 50vh;
-    transform: translateY(-25vh);
-    max-width: 35%;
+    width: clamp(250px, 35%, 29rem);
     border: 1px solid #BDBDBD;
     border-radius: 24px;
     padding: 2.5rem 3rem;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
 }
 .logo {
     height: 1rem;

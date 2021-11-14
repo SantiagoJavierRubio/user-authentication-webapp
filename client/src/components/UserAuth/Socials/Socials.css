@@ -9,8 +9,9 @@
 }
 .social-logos {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    gap: clamp(1rem, 10%, 3rem);
 }
 
 /* sub-component shared classes */

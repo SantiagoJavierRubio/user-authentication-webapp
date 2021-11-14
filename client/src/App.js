@@ -59,7 +59,8 @@ function App() {
       <>
       {hasUser ?
         <div id="top-banner">
-          <Logo />
+          <Logo  id="light-mode-logo" />
+          <LightLogo id="dark-mode-logo" />
           <UserActions user={userData}/>
         </div>
         : 
@@ -67,6 +68,10 @@ function App() {
       }
       <div className="App">
         {hasUser ? <AuthorizedView /> : <UserAuth />}
+        <div className="credits">
+          <p id="myName">created by <a href="https://devchallenges.io/portfolio/SantiagoJavierRubio" rel="noreferrer" target="_blank">Santiago Javier Rubio</a></p>
+          <p><a href="https://devchallenges.io/" rel="noreferrer" target="_blank">devChallenges.io</a></p>
+        </div>
       </div>
       </>
       );

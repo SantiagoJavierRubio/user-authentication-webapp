@@ -40,7 +40,7 @@ const Uploader = (props) => {
         setOver(false);
         const file = e.dataTransfer?.files?.[0];
         let fileExtension = file?.name?.substring(file?.name?.lastIndexOf('.'))
-        if(VALID_EXTENSIONS.includes(fileExtension)){
+        if(VALID_EXTENSIONS.includes(fileExtension.toLowerCase())){
             uploadFile(e.dataTransfer.files[0]);
         } else {
             alert('File extension not supported');

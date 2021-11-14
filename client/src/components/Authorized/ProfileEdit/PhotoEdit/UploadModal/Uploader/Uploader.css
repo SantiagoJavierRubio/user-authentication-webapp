@@ -16,7 +16,7 @@
     align-items: center;
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-    width: 50%;
+    width: clamp(18rem, 50%, 30rem);
     overflow-y: auto;
     padding: 1rem;
     font-family: Noto Sans;
@@ -44,10 +44,8 @@
     background-color: #d9dbde;
 }
 .optionText {
-    color: #828282;
+    margin-left: 0 !important;
     text-align: center;
-    font-size: .75rem;
-    font-weight: 500;
 }
 .SVG {
     margin: auto;
@@ -65,7 +63,12 @@
     cursor: pointer;
 }
 .inputButton:hover {
-    background-color: #2F80FF,
+    background-color: #2F80FF;
+    box-shadow: 1px 2px 3px 1px rgba(0,0,0,.1);
+}
+.inputButton:active {
+    background-color: #2F80FF;
+    box-shadow: none;
 }
 .realInput {
     display: none;

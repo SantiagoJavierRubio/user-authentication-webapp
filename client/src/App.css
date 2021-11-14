@@ -1,10 +1,14 @@
 .App {
   text-align: center;
   margin: 0 auto;
-  max-width: 1600px;
+  max-width: 1660px;
   width: 80%;
   box-sizing: border-box;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #top-banner {
   display: flex;
@@ -14,17 +18,56 @@
   margin-top: 0rem;
 }
 .loading-dots {
-  margin: auto;
+  position: absolute;
   width: 10rem;
-  margin-top: 50%;
-  transform: translateY(-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+#dark-mode-logo {
+  display: none;
+}
+.credits {
+  width: clamp(55%, 100%, 62rem);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.credits p, a {
+  margin-top: .25rem;
+  padding: 0 .5rem 0 0;
+  font-family: Noto Sans;
+  font-weight: 600;
+  font-size: .8rem;
+  color: rgb(130,130,130);
+  font-style: normal;
+  text-decoration: none;
+}
+#myName a {
+  text-decoration: underline;
+}
 
-@media (max-width: 768px){
+@media (prefers-color-scheme: dark) {
+  #dark-mode-logo {
+    display: unset;
+  }
+  #light-mode-logo {
+    display: none;
+  }
+  .loading-dots {
+    color: ivory;
+  }
+}
+
+@media only screen and (max-width: 768px){
   .App{
       width: 100%;
+  }
+  .credits p, a {
+    padding: 0;
   }
 }

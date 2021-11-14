@@ -1,3 +1,4 @@
 #authorized-view {
     margin: 0;
+    width: clamp(50%, 100%, 60rem);
 }
