@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from '../../../../../../App';
 import axios from 'axios';
 import { BallTriangle } from '@agney/react-loading';
 import { ReactComponent as ImageLogo } from './image.svg';
@@ -6,8 +7,10 @@ import './Uploader.css';
 
 const Uploader = (props) => {
 
+    const { userData, refreshUser } = useContext(Context);
+
     const [isOver, setOver] = useState(false);
-    const { closeModal, user, toggleEdit } = props;
+    const { closeModal } = props;
 
     const [providedImg, setProvidedImg] = useState(null);
     const [fileUploaded, setFileUploaded] = useState(false);
@@ -23,7 +26,7 @@ const Uploader = (props) => {
             const res = await axios.post(`${process.env.REACT_APP_API_URI}/images/upload`,
                 formData,
                 { 
-                    headers: { 'Content-Type': 'multipart/form-data', 'usr': user.userID }
+                    headers: { 'Content-Type': 'multipart/form-data', 'usr': userData.userID }
                 }
             )
             setFileUploaded(true);
@@ -75,40 +78,40 @@ const Uploader = (props) => {
         e.preventDefault();
         try{
             const res = await axios.post(`${process.env.REACT_APP_API_URI}/user/profile_pic_edit`, {
-                usr: user.userID,
+                usr: userData.userID,
                 url: providedImg
             });
-            closeModal();
-            toggleEdit();
+            refreshUser(userData.userID);
         } catch (err) {
             console.log(err);
         } finally {
             setProvidedImg(null);
             setFileUploaded(false);
+            closeModal();
         }
     }
 
-    const handleCancel = async () => {
-        if(fileUploaded){
-            try{
+    const handleCancel = async (e) => {
+        e?.preventDefault();
+        try{
+            if(fileUploaded){
                 await axios.post(`${process.env.REACT_APP_API_URI}/images/delete_latest`, {
-                    usr: user.userID
+                    usr: userData.userID
                 })
-            } catch (err) {
-                console.log(err);
+                refreshUser(userData.userID);
             }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setProvidedImg(null);
+            setFileUploaded(false);
+            closeModal();
         }
-        setProvidedImg(null);
-        setFileUploaded(false);
-    }
-
-    const handleClose = () => {
-        handleCancel().finally(closeModal())
     }
 
     return(
         <div className='uploaderMain' onClick={e => e.stopPropagation()}>
-            <button className="closeModalBtn" onClick={handleClose}>
+            <button className="closeModalBtn" onClick={handleCancel}>
                 <span className="material-icons">close</span>
             </button>
             {providedImg ? 

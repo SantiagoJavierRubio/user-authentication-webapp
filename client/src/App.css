@@ -50,6 +50,11 @@
 #myName a {
   text-decoration: underline;
 }
+.auth-phase {
+  position: absolute;
+  bottom: 0%;
+  width: clamp(250px, 35%, 35rem);
+}
 
 @media (prefers-color-scheme: dark) {
   #dark-mode-logo {
@@ -69,5 +74,11 @@
   }
   .credits p, a {
     padding: 0;
+  }
+}
+
+@media only screen and (max-height: 505px) {
+  .auth-phase {
+    display: none;
   }
 }

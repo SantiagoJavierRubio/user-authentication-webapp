@@ -44,7 +44,7 @@ const AuthorizedView = () => {
             {isLoading ? <ThreeDots className="loading-dots"/> : (
             <>
                 {toEdit ? <ProfileEdit user={user} toggleEdit={toggleEdit} /> :
-                <Profile user={user} toggleEdit={toggleEdit} />}
+                <Profile toggleEdit={toggleEdit} />}
             </>
             )}
         </div>

@@ -1,30 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from '../../App';
 import Dropdown from './Dropdown/Dropdown';
 import './UserActions.css';
 
-const UserActions = ({ user }) => {
+const UserActions = () => {
 
-    const [userImg, setImg] = useState();
+    const { userData } = useContext(Context);
+    const [userImg, setImg] = useState(userData?.img);
 
     const handleImgError = () => {
         setImg(null);
     }
 
     useEffect(()=> {
-        setImg(user?.img);
-    }, [user])
+        setImg(userData?.img);
+    }, [userData])
 
-    return(
+    if(userData) {
+        return(
         <div id="user-actions">
             {userImg ? 
                 <img src={userImg} alt="" onError={handleImgError}/> 
                 :
                 <span className="material-icons">account_circle</span>
             }
-            <p className="username">{user?.name ? user.name : user?.email}</p>
+            <p className="username">{userData?.name ? userData.name : userData?.email}</p>
             <Dropdown />
         </div>
     )
+    } else {
+        return null;
+    }
 
 }
 

@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -9,6 +9,8 @@ import UserActions from './components/UserActions/UserActions';
 import { ReactComponent as Logo } from './components/Logos/devchallenges.svg';
 import { ReactComponent as LightLogo } from './components/Logos/devchallenges-light.svg';
 import { ThreeDots } from '@agney/react-loading';
+
+export const Context = React.createContext();
 
 function App() {
   
@@ -26,9 +28,9 @@ function App() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const getUserInfo = async(user) => {
+  const getUserInfo = async(userID) => {
     try {
-        const user_id = user.uid;
+        const user_id = userID;
         const response = await axios.get(`${process.env.REACT_APP_API_URI}/user/profile`, {
             params: {
                 id: user_id
@@ -45,7 +47,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(true);
-        getUserInfo(user);
+        getUserInfo(user.uid);
         setLoading(false);
       } else {
         setUser(false);
@@ -56,24 +58,24 @@ function App() {
 
   if(!loading){
     return (
-      <>
+      <Context.Provider value={{ userData: userData, refreshUser: getUserInfo }}>
       {hasUser ?
         <div id="top-banner">
           <Logo  id="light-mode-logo" />
           <LightLogo id="dark-mode-logo" />
-          <UserActions user={userData}/>
+          <UserActions />
         </div>
         : 
         null
       }
       <div className="App">
         {hasUser ? <AuthorizedView /> : <UserAuth />}
-        <div className="credits">
+        <div className={`credits ${hasUser? null : 'auth-phase'}`}>
           <p id="myName">created by <a href="https://devchallenges.io/portfolio/SantiagoJavierRubio" rel="noreferrer" target="_blank">Santiago Javier Rubio</a></p>
           <p><a href="https://devchallenges.io/" rel="noreferrer" target="_blank">devChallenges.io</a></p>
         </div>
       </div>
-      </>
+      </Context.Provider>
       );
   } else {
     return(

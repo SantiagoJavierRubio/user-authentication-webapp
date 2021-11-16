@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { Context } from '../../../App';
 import axios from 'axios';
 import { getAuth, updateEmail, updatePassword } from "firebase/auth";
 import PhotoEdit from './PhotoEdit/PhotoEdit';
@@ -5,8 +7,9 @@ import './ProfileEdit.css';
 
 const ProfileEdit = (props) => {
 
-    const { user, toggleEdit } = props;
-    const { userID, name, email, phone, bio, img } = user;
+    const { userData } = useContext(Context);
+    const { toggleEdit } = props;
+    const { userID, name, email, phone, bio, img } = userData;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +47,7 @@ const ProfileEdit = (props) => {
                 <p>Changes will be reflected to all the services</p>
             </div>
             <div className="photo-edit">
-                <PhotoEdit user={user} toggleEdit={toggleEdit} />
+                <PhotoEdit toggleEdit={toggleEdit} />
                 <p>CHANGE PHOTO</p>
             </div>
             <div className="form-element">

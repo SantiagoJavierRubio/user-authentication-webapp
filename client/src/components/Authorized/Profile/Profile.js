@@ -1,10 +1,13 @@
-import React from "react";
+import { useContext } from "react";
+import { Context } from '../../../App';
+
 import './Profile.css';
 
 const Profile = (props) => {
 
-    const { user, toggleEdit } = props;
-    const { userID, name, email, phone, bio, img } = user;
+    const { toggleEdit } = props;
+    const { userData, refreshUser } = useContext(Context);
+    const { userID, name, email, phone, bio, img } = userData;
 
     return(
         <div className="profile-main">
