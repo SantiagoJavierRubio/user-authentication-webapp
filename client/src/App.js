@@ -45,12 +45,10 @@ function App() {
             }
         })
         if(response.data?.userID) setUserData(response.data);
-        throw new Error('User not found');
     } catch(err) {
-      if(err.message === 'User not found') return;
-      setErrorView(err.message);
+        setErrorView(err.message);
     }
-}
+  }
 
   useEffect(() => {
     const auth = getAuth();
@@ -67,6 +65,7 @@ function App() {
   }, []);
 
   const setErrorView = (msg=null) => {
+    if(msg === 'Request failed with status code 404') return window.location.reload(false);
     setError([true, msg]);
   }
 
