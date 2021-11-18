@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Context } from '../../../../../../App';
 import axios from 'axios';
 import { BallTriangle } from '@agney/react-loading';
@@ -7,7 +7,7 @@ import './Uploader.css';
 
 const Uploader = (props) => {
 
-    const { userData, refreshUser } = useContext(Context);
+    const { userData, refreshUser, setErrorView } = useContext(Context);
 
     const [isOver, setOver] = useState(false);
     const { closeModal } = props;
@@ -16,9 +16,15 @@ const Uploader = (props) => {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [isLoading, setLoading] = useState(false);
 
+    useEffect(()=> {
+        setFileUploaded(false);
+        setProvidedImg(null);
+    }, [closeModal]);
+
     const VALID_EXTENSIONS = ['.gif', '.png', '.jpg', '.jpeg'];
 
     const uploadFile = async (file) => {
+        if(file.size/1024 > 2000) return alert('File size exceeded!');
         const formData = new FormData();
         formData.append('image', file);
         setLoading(true);
@@ -32,10 +38,14 @@ const Uploader = (props) => {
             setFileUploaded(true);
             setProvidedImg(res.data.secure_url);
         } catch(err) {
-            console.log(err);
+            handleError(err);
         } finally {
             setLoading(false);
         }
+    }
+
+    const handleError = (error) => {
+        return setErrorView(error.message);
     }
 
     const handleDrop = (e) => {
@@ -83,10 +93,8 @@ const Uploader = (props) => {
             });
             refreshUser(userData.userID);
         } catch (err) {
-            console.log(err);
+            handleError(err);
         } finally {
-            setProvidedImg(null);
-            setFileUploaded(false);
             closeModal();
         }
     }
@@ -101,10 +109,8 @@ const Uploader = (props) => {
                 refreshUser(userData.userID);
             }
         } catch (err) {
-            console.log(err);
+            handleError(err);
         } finally {
-            setProvidedImg(null);
-            setFileUploaded(false);
             closeModal();
         }
     }

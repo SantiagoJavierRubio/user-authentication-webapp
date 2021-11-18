@@ -6,7 +6,7 @@ import './Profile.css';
 const Profile = (props) => {
 
     const { toggleEdit } = props;
-    const { userData, refreshUser } = useContext(Context);
+    const { userData } = useContext(Context);
     const { userID, name, email, phone, bio, img } = userData;
 
     return(
@@ -25,7 +25,9 @@ const Profile = (props) => {
                 </div>
                 <div className="profile-column">
                     <h4 className="profile-item-title">PHOTO</h4>
-                    <img src={img} className="profile-item" id="profile-pic" alt="Profile picture"/>
+                    <img src={img ? img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} 
+                        className="profile-item" id="profile-pic" alt="Profile picture"
+                    />
                 </div>
                 <div className="profile-column">
                     <h4 className="profile-item-title">NAME</h4>

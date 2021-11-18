@@ -48,7 +48,7 @@
 }
 .auth-title {
     font-family: Noto Sans;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 .user-form {
@@ -62,7 +62,7 @@
     height: 2rem;    
     border: 1px solid #BDBDBD;
     margin: .35rem 0;
-    padding: .2rem .5rem;
+    padding: .3rem .5rem;
     color: rgba(130, 130, 130, 1);
     border-radius: 8px;
 }
@@ -72,6 +72,13 @@
     height: 100%;
     outline: none;
     margin-left: .5rem;
+    font-family: Noto Sans;
+    font-size: 1rem;
+}
+.register-description {
+    font-family: Noto Sans;
+    font-size: 1rem;
+    font-weight: 400;
 }
 .submit-btn {
     background: #2F80ED;
@@ -91,6 +98,13 @@
 }
 .submit-btn:active {
     box-shadow: none;
+}
+.error-msg {
+    font-family: Noto Sans;
+    font-size: .8rem;
+    font-weight: 300;
+    color: red;
+    margin: .2rem 0 0 1rem;
 }
 /*    ****     */
 

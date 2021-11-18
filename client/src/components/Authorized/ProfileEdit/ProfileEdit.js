@@ -1,15 +1,15 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Context } from '../../../App';
 import axios from 'axios';
 import { getAuth, updateEmail, updatePassword } from "firebase/auth";
 import PhotoEdit from './PhotoEdit/PhotoEdit';
 import './ProfileEdit.css';
 
-const ProfileEdit = (props) => {
+const ProfileEdit = ({ toggleEdit }) => {
 
-    const { userData } = useContext(Context);
-    const { toggleEdit } = props;
+    const { userData, refreshUser, setErrorView } = useContext(Context);
     const { userID, name, email, phone, bio, img } = userData;
+    const [authError, setError] = useState({type: null, message: null});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,18 +22,34 @@ const ProfileEdit = (props) => {
             bio: e.target.bio.value || bio,
             password: e.target.password.value
         }
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URI}/user/profile_edit`, formData);
-        } catch(err) {
-            console.log(err);
-        }
         if(formData.email !== email){
-            updateEmail(auth.currentUser, formData.email);
+            try {
+                await updateEmail(auth.currentUser, formData.email);
+            } catch(err) {
+                return handleError(err)
+            }
         }
         if(formData.password) {
-            updatePassword(auth.currentUser, formData.password);
+            try {
+                await updatePassword(auth.currentUser, formData.password);
+            } catch(err) {
+                return handleError(err);
+            }
+        }
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URI}/user/profile_edit`, formData);
+        } catch(err) {
+            return handleError(err);
         }
         toggleEdit();
+    }
+
+    const handleError = (error) => {
+        const code = error.code;
+        if(code === 'auth/weak-password') return setError({type: 'password', message: 'Password should be at least 6 characters'});
+        if(code === 'auth/email-already-in-use') return setError({type: 'user', message: 'This mail is already in use!'});
+        if(code === 'auth/internal-error') return alert('Something went wrong, try again.');
+        return setErrorView(error.message);
     }
 
     return(
@@ -63,10 +79,12 @@ const ProfileEdit = (props) => {
                 <input type='tel' name='phone' placeholder={phone || "Enter your phone..."} /> 
             </div>
             <div className="form-element">
+                {authError.type === 'user' ? <p className="error-msg">*{authError.message}</p> : null}
                 <label htmlFor="email">Email</label>
                 <input type='email' name='email' placeholder={email || "Enter your email..."} />
             </div>
             <div className="form-element">
+                {authError.type === 'password' ? <p className="error-msg">*{authError.message}</p> : null}
                 <label htmlFor="password">Password</label>
                 <input type='password' name='password' placeholder='************' autoComplete='new-password'/>
             </div>

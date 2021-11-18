@@ -1,9 +1,12 @@
-import React from "react";
+import { useContext } from "react";
+import { Context } from '../../../../App';
 import axios from 'axios';
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { ReactComponent as Logo } from './Github.svg';
 
 const GitHub = () => {
+
+    const setErrorView = useContext(Context).setErrorView;
 
     const signUp = async () => {
 
@@ -16,7 +19,9 @@ const GitHub = () => {
                 token: userAuth._tokenResponse
             })
         } catch (err) {
-            console.log(err)
+            if(err.code === 'auth/popup-closed-by-user') return;
+            if(err.code === 'auth/cancelled-popup-request') return;
+            setErrorView(err.message);
         } 
     }
 

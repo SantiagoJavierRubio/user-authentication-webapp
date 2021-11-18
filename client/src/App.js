@@ -9,6 +9,7 @@ import UserActions from './components/UserActions/UserActions';
 import { ReactComponent as Logo } from './components/Logos/devchallenges.svg';
 import { ReactComponent as LightLogo } from './components/Logos/devchallenges-light.svg';
 import { ThreeDots } from '@agney/react-loading';
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
 export const Context = React.createContext();
 
@@ -25,20 +26,27 @@ function App() {
   };
   const app = initializeApp(firebaseConfig);
   const [hasUser, setUser] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({
+    userID: null,
+    name: null,
+    email: null,
+    phone: null,
+    bio: null,
+    img: null
+  });
   const [loading, setLoading] = useState(true);
+  const [showError, setError] = useState([false, null]);
 
   const getUserInfo = async(userID) => {
     try {
-        const user_id = userID;
         const response = await axios.get(`${process.env.REACT_APP_API_URI}/user/profile`, {
             params: {
-                id: user_id
+                id: userID
             }
         })
         setUserData(response.data);
     } catch(err) {
-        console.log(err);
+      setErrorView(err.message);
     }
 }
 
@@ -56,9 +64,15 @@ function App() {
     });
   }, []);
 
+  const setErrorView = (msg=null) => {
+    setError([true, msg]);
+  }
+
+  if(showError[0]) return <ErrorPage message={showError[1]}/>
+
   if(!loading){
     return (
-      <Context.Provider value={{ userData: userData, refreshUser: getUserInfo }}>
+      <Context.Provider value={{ userData: userData, refreshUser: getUserInfo, setErrorView: setErrorView }}>
       {hasUser ?
         <div id="top-banner">
           <Logo  id="light-mode-logo" />
@@ -77,12 +91,11 @@ function App() {
       </div>
       </Context.Provider>
       );
-  } else {
-    return(
+  }
+  return(
       <ThreeDots className="loading-dots"/>
     )
-  }
 }
   
-  export default App;
+export default App;
   
