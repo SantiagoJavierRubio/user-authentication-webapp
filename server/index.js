@@ -8,8 +8,8 @@ import imageRoutes from './routes/images.js';
 
 const app = express();
 dotenv.config();
-app.use(express.json({ limit: '150mb' }));
 app.use(cors());
+app.use(express.json({ limit: '150mb' }));
 
 const PORT = process.env.PORT || 5000;
 
