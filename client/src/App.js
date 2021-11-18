@@ -44,8 +44,10 @@ function App() {
                 id: userID
             }
         })
-        setUserData(response.data);
+        if(response.data?.userID) setUserData(response.data);
+        throw new Error('User not found');
     } catch(err) {
+      if(err.message === 'User not found') return;
       setErrorView(err.message);
     }
 }

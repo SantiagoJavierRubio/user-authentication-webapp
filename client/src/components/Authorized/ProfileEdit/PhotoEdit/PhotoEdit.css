@@ -23,7 +23,7 @@
     transition: opacity 0.2s;
 }
 .photo-overlay:hover {
-    opacity: 100%;
+    opacity: 100;
 }
 .photo-overlay:active {
     background-color: rgba(0,0,0,0.7);

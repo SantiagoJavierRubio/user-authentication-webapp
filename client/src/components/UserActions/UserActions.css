@@ -19,6 +19,7 @@
     }
     #user-actions .username {
         text-align: center;
+        font-size: .8rem;
     }
 }
 

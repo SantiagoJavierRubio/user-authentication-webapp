@@ -30,7 +30,7 @@ const PhotoEdit = () => {
         <>
         <UploadModal closeModal={closeModal} visible={showModal}/>
         <div className="photo-edit-box">
-            <img src={userImg} alt="Profile picture" onError={handleImgError} />
+            <img src={userImg || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="Profile picture" onError={handleImgError} />
             <button className="photo-overlay" onClick={handleImgClick}>
                 <span className="material-icons">photo_camera</span>
             </button>
