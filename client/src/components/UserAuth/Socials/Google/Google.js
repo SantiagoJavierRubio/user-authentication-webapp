@@ -14,13 +14,13 @@ const Google = () => {
         const auth = getAuth();
         try {
             const userAuth = await signInWithPopup(auth, provider);
-            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/register`, {
+            await axios.post(`${process.env.REACT_APP_API_URI}/auth/register`, {
                 user: userAuth.user,
-                token: userAuth._tokenResponse
             })
         } catch (err) {
             if(err.code === 'auth/popup-closed-by-user') return;
             if(err.code === 'auth/cancelled-popup-request') return;
+            if(err.code === 'auth/popup-blocked') return alert('Allow popups to log in with this service');
             setErrorView(err.message);
         } 
     }
