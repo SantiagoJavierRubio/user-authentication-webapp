@@ -76,10 +76,6 @@ $ git clone https://github.com/your-user-name/your-project-name
 # Install dependencies
 $ npm install
 
-# Edit the .env.example files to contain your own tokens
-$ client/.env
-$ server/.env
-
 # Run the app
 $ npm start
 ```
